@@ -2,64 +2,6 @@
 
 {% block extra_script %}
 	<script type="text/javascript">
-	
-		//登入介面, type=1 為註冊
-		function login(type)
-		{
-			var title_ = "登入";
-			var data_ = "";
-			if ( type == 1 )
-			{
-				title_ = "註冊";
-				
-				data_ =
-				"	<div class='login'>" +
-				"		<form action='{{ url_for('register') }}' method='post'>"+
-				"			<dl>"+
-				"			<dt>帳號: </dt>"+
-				"			<dd><input name='username' type='text' value='{{ request.form.username }}'> </dd>"+
-				"			<dt>密碼: </dt>"+
-				"			<dd><input name='password' type='password'> </dd>"+
-				"			<dt>再次輸入密碼: </dt>"+
-				"			<dd><input name='password2' type='password'> </dd>"+
-				"			<dd><input value='送出' type='submit'>"+
-				"			</dd>"+
-				"			</dl>"+
-				"		</form>"+
-				"	</div>"	;
-			}
-			else
-			{
-				title_ = "登入";
-				data_ =
-				"	<div class='login'>" +
-				"		<form action='{{ url_for('login') }}' method='post'>"+
-				"			<dl>"+
-				"			<dt>Username: </dt>"+
-				"			<dd><input name='username' type='text' value='{{ request.form.username }}'> </dd>"+
-				"			<dt>Password: </dt>"+
-				"			<dd><input name='password' type='password'> </dd>"+
-				"			<dd><input value='Login' type='submit'>"+
-				"			</dd>"+
-				"			</dl>"+
-				"		</form>"+
-				"	</div>"	;				
-			}
-			
-			
-			$('#loginDlg').html( data_ );
-			
-			// Dialog
-			$('#loginDlg').dialog({
-				//autoOpen: false,
-				title: title_,
-				modal: true,
-				resizable: false,
-				width: 450
-			});
-
-		}	
-
 
 		function getHotList(){
 			$("#hots").empty();
@@ -93,11 +35,11 @@
 {% block content %}
 	<br/>
 	<div class='hero-unit'>
-		<h1>Sudu</h1>
+		<h1>WordGo</h1>
         <p>
-        	速讀網</br>
-        	一個可以練習速讀的地方.</br>
-        	將你喜歡的文章貼上後就可以感受速讀網的威力摟!
+        	沃德狗</br>
+        	sdfjslkfjsoifjoiefoisejfsoifjljioj</br>
+        	asfsdfsla;jeiofjwoiefjslkjfsoief
         </p>
         <a id="moreBtn" href="#" class="btn btn-primary btn-large">More &raquo;</a>
 	</div>
@@ -135,67 +77,7 @@
 	-->
 
 	<div class="row">
-<!-- 		<div class="lastestList span6">
-			<h4>[新人進場]</h4>
-			{% if Users %}
-			<ul>
-				{% for user in Users %}
-				<li>{{ user.account }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-		</div> -->
-
-		<div class="lastestList span6">
-			<h4>[新人進場]</h4>
-			{% if Users %}
-			<ul class="thumbnails">
-				{% for user in Users %}
-			    <li class="span3 clearfix">
-				    <div class="thumbnail clearfix">
-					    <img src="{{ url_for('getHeadImg', username=user.account) }}" alt="ALT NAME" class="pull-left span1 clearfix" style='margin-right:10px'/>
-					    <div class="caption" class="pull-left">
-						    <a href="#" class="btn btn-small btn-primary icon pull-right">{{ _("加入") }}</a>
-						    <h4><a href="{{ url_for('user.profile', name=user.account) }}" >{{ user.account }}</a></h4>
-						    <small><b>{{ _("加入時間") }}: </b>{{ user.date.strftime('%Y-%m-%d') }}</small>
-					    </div>
-				    </div>
-			    </li>
-			    {% endfor %}
-			</ul>
-			{% endif %}
-		</div>
-
-		<div class="hotList span6">
-			<h4>[熱門項目]</h4>
-			{% if Articles %}
-			<ul class="thumbnails">
-				{% for article in Articles %}
-			    <li class="span6 clearfix">
-				    <div class="thumbnail clearfix">
-					    <div class="caption" class="pull-left">
-						    <!-- <a href="#" class="btn btn-primary icon pull-right">{{ _("加入") }}</a> -->
-						    <h4><a href="{{ url_for('sudu',ID=article.index) }}" >{{ article.title }}</a></h4>
-						    <!-- <small class="">{{ article.date.strftime('%Y-%m-%d') }}<br/></small> -->
-						    <small>{{ article.content|truncate(100, True) }}</small>
-					    </div>
-				    </div>
-			    </li>
-			    {% endfor %}
-			</ul>
-			{% endif %}
-		</div>
-
-<!-- 		<div class="hotList span6">
-			<h4>[熱門項目]</h4>
-			{% if Articles %}
-			<ul id="hots">
-				{% for article in Articles %}
-				<li>{{ article.content }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-		</div> -->
+		aaaaa
 	</div>
 
 	<div id="loginDlg" title="" style="display:none;"></div>

@@ -16,7 +16,6 @@ from jinja2 import TemplateNotFound
 from model.extensions import db
 #from model.GameObj import DbGame
 from model.UserObj import DbUser
-from model.ArticleObj import DbArticle
 
 user = Blueprint('user', __name__)
 
@@ -49,16 +48,3 @@ def profile(name=""):
 
     #若是本人就秀控制介面
     return render_template('user/Profile.html',Member=Member_)
-
-
-@user.route('/article')
-def article():
-    """文章管理介面"""
-
-    # 若沒有登入則轉回首頁
-    if g.user == None:
-        return redirect( url_for('index') )
-
-    #列出所有文章
-    articles_ = DbArticle.query.filter_by(member_no=g.user.index)
-    return render_template('user/article.html',Entries=articles_)

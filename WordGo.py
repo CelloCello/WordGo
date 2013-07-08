@@ -3,13 +3,13 @@
     WordGo
     ~~~~~~
 
-    被單字的網路應用
+    背單字的網路應用
 
 """
 
 # system
 #import Image
-from PIL import Image
+#from PIL import Image
 import os
 import random
 #import time, datetime
@@ -32,7 +32,6 @@ from ctools.web_func import get_image_type, check2mkdir
 # 資料庫相關
 #from flask.ext.sqlalchemy import SQLAlchemy
 from model.UserObj import DbUser
-from model.ArticleObj import DbArticle
 from model.extensions import db
 from model.extensions import SerializeModel
 
@@ -92,33 +91,13 @@ def before_request():
 #     if hasattr(g, 'db'):
 #         g.db.close()
 
-    
-#速讀頁面
-@app.route('/sudu/<int:ID>')
-def sudu(ID):
-    '''
-    速讀主頁面
-    '''
-    
-    #檢查有無登入
-    if g.user == None:
-        #沒登入就回到登入頁面
-        return redirect(url_for('index'))
-        
-    #找出文章
-    #Article_ = query_db("select TITLE, ARTICLE from ArticleData where [INDEX]=?",[ID],one=True)
-    Article_ = DbArticle.query.filter_by(index=ID).first()
-    if Article_ is None:
-        return u"<font color='red'>沒有這篇文章!!!</font>"
-        
-    return render_template('sudu/sudu.html',Text=Article_)
+
 
 #首頁
 @app.route('/')
 def index():
-    articles_ = DbArticle.query.limit(5).all()
     users_ = DbUser.query.order_by(DbUser.date).limit(10)
-    return render_template('index.html', Articles=articles_, Users=users_)  
+    return render_template('index.html', Users=users_)  
     
 # #Login頁面(目前用不到)
 # @app.route('/login', methods=['GET'])

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Sudu{% block title %}{% endblock %}</title>
+    <title>WordGo{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -31,6 +31,8 @@
         }      
     </style>
 
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.css') }}">
+
     {% block extra_css %}
     {% endblock %}
 	
@@ -45,13 +47,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-              <a class="brand" href="{{ url_for('index') }}">Sudu</a>
+              <a class="brand" href="{{ url_for('index') }}">WordGo</a>
               <div class="nav-collapse collapse">
                   <ul class="nav">
-                      {% if g.user %}
-                      <li><a href="{{ url_for('user.article') }}">{{_("管理文章")}}</a></li>
-                      <li><a href="{{ url_for('game.center') }}">{{_("遊樂場")}}</a></li>
-                      {% endif %}
+                      <li><a href="{{ url_for('about.me') }}">{{_("遊樂場")}}</a></li>
+                      <li><a href="{{ url_for('about.me') }}">{{_("遊樂場")}}</a></li>
+                      <li><a href="{{ url_for('about.me') }}">{{_("遊樂場")}}</a></li>
+                      <li><a href="{{ url_for('about.me') }}">{{_("遊樂場")}}</a></li>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{_("關於")}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -63,7 +65,7 @@
 
             		
                 {% if g.user %}
-                  <ul class="nav pull-right">
+                  <ul class="navbar pull-right">
                     <!-- <a href="{{ url_for('logout') }}">[{{ g.user.account }}] Logout</a> -->
                     <!-- <a href="{{ url_for('logout') }}">{{ gettext('[%(user)s] Logout',user=g.user.account) }}</a> -->
                     <li class="dropdown">
