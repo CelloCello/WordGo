@@ -7,7 +7,7 @@
 
 """
 
-
+import shelve
 from flask import Blueprint, render_template, abort, redirect, url_for, flash
 from flask import g
 from flask import request
@@ -63,3 +63,39 @@ def query_word():
     if result == None:
         result = "Can't find!"
     return result
+
+
+@user.route('/save', methods=['POST'])
+def save():
+    '''存到單字本'''
+    word = request.json['word']
+    if g.user:
+        path = ".//static//users//"+g.user.account+"//words.dat"
+        print path
+        try:  
+            db = shelve.open(path, 'c')  
+            # key与value必须是字符串  
+            dict = YahooDict()
+            result = dict.query(word)
+            db[str(word)] = result
+        finally:  
+            db.close()
+
+    return "Saved"
+
+@user.route('/wordbook')
+def wordbook():
+    '''打開單字本'''
+    if g.user == None:
+        return url_for('index')
+
+    path = ".//static//users//"+g.user.account+"//words.dat"
+    words = {}
+    try:  
+        words = shelve.open(path, 'c')  
+        
+    finally:  
+        pass
+        #words.close()
+
+    return render_template('user/wordbook.html',words=words)

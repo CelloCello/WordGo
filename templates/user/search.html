@@ -6,6 +6,18 @@
 <script type="text/javascript">
     
 
+
+    function searchKeyPress(e) {
+        // look for window.event in case event isn't passed in
+        if (typeof e == 'undefined' && window.event) {
+         e = window.event; 
+        }
+
+        if (e.keyCode == 13){
+            onSearch()
+        }
+    }
+
     //按下搜尋
     function onSearch(){
         var data_ = {
@@ -25,26 +37,59 @@
             contentType: 'application/json;charset=UTF-8',
             success: function(data){
                 //alert(data);
-                $('#resoult').empty();
-                $('#resoult').append(data);
+                $('#result').empty();
+                $('#result').append(data);
             }
         });
+    }
+
+    //按下存檔
+    function onSave(){
+        var data_ = {
+            word: $('#queryword').val()
+        };
+
+        $.ajax({ 
+            type: 'POST',
+            url: '/user/save',
+            data: JSON.stringify(data_),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                alert(data);
+            }
+        });   
     }
 </script>
 {% endblock %}
 
 {% block extra_css %}
+<style type="text/css">
+    #logo{
+        //background-color:#fdce3e;
+        background-repeat:no-repeat;
+        background-image:url(http://l.yimg.com/pv/i/all/vertical/dictionary/tw_srp_metro_dictionary_201211231324.png);
+        top:5px;
+        left:-50px;
+        width:200px;
+        height:58px;
+        //max-width: 100px;
+        text-indent:-9999px
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <br />
 <div id='search'>
     <center>
-    <input id='queryword' type="text" placeholder="Type something…">
-    <button class="btn" onclick='onSearch()'>Submit</button>
+    <input id='queryword' type="text" placeholder="Type something…" onkeypress="searchKeyPress(event);">
+    <button id='searchBtn' class="btn" onclick='onSearch()'>Submit</button>
+    <a href='http://tw.dictionary.search.yahoo.com/'><div id='logo'></div></a>
+    <div>字典來源與版權屬於Yahoo!奇摩字典</div>
     </center>
 </div>
+<div id='saveBtn' onclick='onSave()'>SAVE</div>
 <hr/>
-<div id='resoult'>
+<div id='result'>
 </div>
 {% endblock %}

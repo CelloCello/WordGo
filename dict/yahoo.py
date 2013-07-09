@@ -2,10 +2,10 @@
 
 from pyquery import PyQuery as pq
 
-# q = pq(url='http://tw.dictionary.yahoo.com/dictionary?p=sss&tab1=definition', parser='html')
-# word_scope = q('.result_cluster_first')
+#q = pq(url='http://tw.dictionary.yahoo.com/dictionary?p=wait&tab1=definition', parser='html')
+#word_scope = q('.definition')
 
-# print word_scope.html()
+#print word_scope.html()
 
 class Word:
     '''一個字'''
@@ -34,8 +34,11 @@ class YahooDict:
     '''Yahoo dictionary'''
 
     def query(self, word):
-        query_url = "http://tw.dictionary.yahoo.com/dictionary?p=%s&tab1=definition" % word.encode('utf-8')
+        print word
+        # query_url = "http://tw.dictionary.yahoo.com/dictionary?p=%s&tab1=definition" % word.encode('utf-8')
+        query_url = "http://tw.dictionary.search.yahoo.com/search?p=%s" % word.encode('utf-8')
         #print query_url
         q = pq(url=query_url, parser='html')
         word_scope = q('.result_cluster_first')
         return word_scope.find('.explanation_wrapper').html()
+        # return q('.definition').html()
