@@ -114,7 +114,7 @@ def login():
     # 已經有登入的就秀出你的資訊
     if g.user:
         #return redirect(url_for('showUserProfile',username=g.user.account))
-        return redirect(url_for('user.article'))
+        return redirect(url_for('user.search'))
         
     if request.method == 'POST':
         lgForm_ = LoginForm()
@@ -135,7 +135,7 @@ def login():
             #session['user_name'] = user['ACCOUNT']
             #print ("id:%d, name:%s") % (user['INDEX'],user['ACCOUNT'])
             #return redirect(url_for('showUserProfile',username=user_.account))
-            return redirect(url_for('user.article'))
+            return redirect(url_for('user.search'))
         
     return "<font color='red'>You should go from index page!!</font>"
 

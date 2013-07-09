@@ -10,25 +10,21 @@
 
 from flask import Blueprint, render_template, abort, redirect, url_for, flash
 from flask import g
-from jinja2 import TemplateNotFound
+from flask import request
+from flask import jsonify
+#from jinja2 import TemplateNotFound
 
 # 資料庫相關
-from model.extensions import db
+#from model.extensions import db
 #from model.GameObj import DbGame
 from model.UserObj import DbUser
 
+# 字典
+from dict.yahoo import YahooDict
+
 user = Blueprint('user', __name__)
 
-# @user.before_request
-# def before_request():
-#     """Make sure we are connected to the database each request and look
-#     up the current user so that we know he's there.
-#     """
-#     #g.db = connect_db()
-#     g.user = None
-#     if 'user_id' in session:
-#         #print "before_request - 111:" + str(session['user_id'])
-#         g.user = DbUser.query.filter_by(index=session['user_id']).first()
+
 
 @user.route('/profile')
 @user.route('/profile/<name>')
@@ -48,3 +44,22 @@ def profile(name=""):
 
     #若是本人就秀控制介面
     return render_template('user/Profile.html',Member=Member_)
+
+@user.route('/search')
+def search():
+    '''查單字頁面'''
+    return render_template('user/search.html')
+
+
+@user.route('/query', methods=['POST'])
+def query_word():
+    '''查詢單字'''
+    # print request.json
+    # js = jsonify(**request.json)
+    word = request.json['word']
+
+    dict = YahooDict()
+    result = dict.query(word)
+    if result == None:
+        result = "Can't find!"
+    return result
