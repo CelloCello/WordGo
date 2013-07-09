@@ -34,7 +34,7 @@ class YahooDict:
     '''Yahoo dictionary'''
 
     def query(self, word):
-        query_url = "http://tw.dictionary.yahoo.com/dictionary?p=%s&tab1=definition" % word
+        query_url = "http://tw.dictionary.yahoo.com/dictionary?p=%s&tab1=definition" % word.encode('utf-8')
         #print query_url
         q = pq(url=query_url, parser='html')
         word_scope = q('.result_cluster_first')
