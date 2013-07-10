@@ -34,7 +34,7 @@ class YahooDict:
     '''Yahoo dictionary'''
 
     def query(self, word):
-        print word
+        #print word
         # query_url = "http://tw.dictionary.yahoo.com/dictionary?p=%s&tab1=definition" % word.encode('utf-8')
         query_url = "http://tw.dictionary.search.yahoo.com/search?p=%s" % word.encode('utf-8')
         #print query_url

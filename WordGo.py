@@ -252,8 +252,7 @@ def getHeadImg(username,type='L'):
     filename_ = "/head.jpg"
     if type == "s":
         filename_ = "/head_s.jpg"
-    #imgPath_ = "users/" + username + filename_
-    imgPath_ = "users/" + "cello" + filename_
+    imgPath_ = "users/" + username + filename_
     path_ = url_for('static', filename=imgPath_)
 
     #先確認有沒有圖
