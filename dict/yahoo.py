@@ -40,5 +40,5 @@ class YahooDict:
         #print query_url
         q = pq(url=query_url, parser='html')
         word_scope = q('.result_cluster_first')
-        return word_scope.find('.explanation_wrapper').html()
+        return word_scope.find('.explanation_wrapper')
         # return q('.definition').html()

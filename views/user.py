@@ -59,7 +59,7 @@ def query_word():
     word = request.json['word']
 
     dict = YahooDict()
-    result = dict.query(word)
+    result = dict.query(word).html()
     if result == None:
         result = "Can't find!"
     return result
@@ -77,7 +77,10 @@ def save():
             # key与value必须是字符串  
             dict = YahooDict()
             result = dict.query(word)
-            db[str(word)] = result
+            word_info = {}
+            word_info['html'] = result.html()
+            word_info['text'] = result.text()
+            db[str(word)] = word_info
         finally:  
             db.close()
 
@@ -98,4 +101,5 @@ def wordbook():
         pass
         #words.close()
 
+    print len(words)
     return render_template('user/wordbook.html',words=words)
