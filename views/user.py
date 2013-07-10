@@ -71,7 +71,7 @@ def save():
     word = request.json['word']
     if g.user:
         fn = "users/"+g.user.account+"/words.dat"
-        path = "./" + url_for('static', filename=fn)
+        path = "." + url_for('static', filename=fn)
         #path = ".//static//users//"+g.user.account+"//words.dat"
         print path
         try:  
@@ -95,7 +95,7 @@ def wordbook():
         return url_for('index')
 
     fn = "users/"+g.user.account+"/words.dat"
-    path = "./" + url_for('static', filename=fn)
+    path = "." + url_for('static', filename=fn)
     print path
     #path = ".//static//users//"+g.user.account+"//words.dat"
     words = {}
