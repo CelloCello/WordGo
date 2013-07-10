@@ -7,6 +7,7 @@
 
 """
 
+import Image
 import shelve
 from flask import Blueprint, render_template, abort, redirect, url_for, flash
 from flask import g
