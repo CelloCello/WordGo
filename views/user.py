@@ -70,7 +70,9 @@ def save():
     '''存到單字本'''
     word = request.json['word']
     if g.user:
-        path = ".//static//users//"+g.user.account+"//words.dat"
+        fn = "users/"+g.user.account+"/words.dat"
+        path = "./" + url_for('static', filename=fn)
+        #path = ".//static//users//"+g.user.account+"//words.dat"
         print path
         try:  
             db = shelve.open(path, 'c')  
@@ -92,7 +94,10 @@ def wordbook():
     if g.user == None:
         return url_for('index')
 
-    path = ".//static//users//"+g.user.account+"//words.dat"
+    fn = "users/"+g.user.account+"/words.dat"
+    path = "./" + url_for('static', filename=fn)
+    print path
+    #path = ".//static//users//"+g.user.account+"//words.dat"
     words = {}
     try:  
         words = shelve.open(path, 'c')  
