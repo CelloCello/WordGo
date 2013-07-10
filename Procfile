@@ -1,1 +1,1 @@
-web: gunicorn Sudu:app
+web: gunicorn WordGo:app
