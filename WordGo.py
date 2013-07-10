@@ -256,7 +256,7 @@ def getHeadImg(username,type='L'):
     path_ = url_for('static', filename=imgPath_)
 
     #先確認有沒有圖
-    if not os.path.exists("./"+path_):
+    if not os.path.exists(path_):
         path_ = url_for('static', filename='images/NoHead.png')
 
     print path_
