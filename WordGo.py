@@ -259,6 +259,7 @@ def getHeadImg(username,type='L'):
     if not os.path.exists("./"+path_):
         path_ = url_for('static', filename='images/NoHead.png')
 
+    print path_
     rand_ = random.randint(0,1000)
     path_ = path_+"?"+str(rand_)
     return redirect(path_)
