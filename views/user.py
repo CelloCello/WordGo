@@ -71,7 +71,7 @@ def save():
     '''存到單字本'''
     word = request.json['word']
     if g.user:
-        fn = "users/"+g.user.account+"/words.dat"
+        fn = "users/"+g.user.account+"/words.db"
         path = "." + url_for('static', filename=fn)
         #path = ".//static//users//"+g.user.account+"//words.dat"
         print path
@@ -95,7 +95,7 @@ def wordbook():
     if g.user == None:
         return url_for('index')
 
-    fn = "users/"+g.user.account+"/words.dat"
+    fn = "users/"+g.user.account+"/words.db"
     path = "." + url_for('static', filename=fn)
     print path
     #path = ".//static//users//"+g.user.account+"//words.dat"
