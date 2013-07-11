@@ -52,7 +52,7 @@ DEFAULT_MODULES = (
 # create our little application :)
 app = Flask(__name__)
 app.config.from_object('Config.DevConfig')  #設定config
-app.config.from_envvar('SUDU_SETTINGS', silent=True)
+app.config.from_envvar('WORDGO_SETTINGS', silent=True)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///DBInfo.db'
 #app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 db.init_app(app)
@@ -249,9 +249,9 @@ def getHeadImg(username,type='L'):
     '''
     取得頭像
     '''
-    filename_ = "/head.jpg"
+    filename_ = "/Head.jpg"
     if type == "s":
-        filename_ = "/head_s.jpg"
+        filename_ = "/Head_s.jpg"
     imgPath_ = "users/" + username + filename_
     path_ = url_for('static', filename=imgPath_)
 
