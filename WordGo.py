@@ -137,7 +137,7 @@ def login():
             #session['user_name'] = user['ACCOUNT']
             #print ("id:%d, name:%s") % (user['INDEX'],user['ACCOUNT'])
             #return redirect(url_for('showUserProfile',username=user_.account))
-            return redirect(url_for('user.search'))
+            return redirect(url_for('word.search'))
         
     return "<font color='red'>You should go from index page!!</font>"
 
