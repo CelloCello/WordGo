@@ -23,7 +23,7 @@
 
     //刪除
     function delWord(word){
-	    
+	    alert('delete');
 	    myPost("word/delete/"+word, "", function(data){
 			//alert(data);
 			var tr = $('#word_'+word);
@@ -53,6 +53,8 @@
                 <th>#</th>
                 <th>{{ _("單字") }}</th>
                 <th>{{ _("內容") }}</th>
+                <th>{{ _("熟悉度") }}</th>
+                <th>{{ _("日期") }}</th>
                 <th>{{ _("刪除") }}</th>
             </tr>
         </thead>
@@ -64,6 +66,8 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ key }}</td>
                     <td>{{ words[key]['text'] }}</td>
+                    <td>{{ key }}</td>
+                    <td>{{ key }}</td>
                     <td><button id="del_{{ key }}">Delete</button>
                 </tr>
             {% endfor%}
@@ -73,8 +77,10 @@
                 <tr id="word_{{ word['word'] }}">
                     <td><input type="checkbox" class="cbWord" name="user_active_col[]" value="{{ word['word'] }}"></td>
                     <td>{{ loop.index }}</td>
-                    <td>{{ word['word'] }}</td>
-                    <td>{{ word['word_info']['text'] }}</td>
+                    <td><a href="{{url_for('word.show', word=word['word'])}}">{{ word['word'] }}</a></td>
+                    <td>{{ word['word_info']['text']|truncate(50, True) }}</td>
+                    <td>{{ word['familiar'] }}</td>
+                    <td>{{ word['date'] }}</td>
                     <td><button onclick="delWord('{{ word['word'] }}')">Delete</button>
                 </tr>
             {% endfor%}

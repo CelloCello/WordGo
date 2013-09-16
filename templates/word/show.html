@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %} - Show Word{% endblock %}
+
+{% block extra_script %}
+<script type="text/javascript">
+    
+
+    function searchKeyPress(e) {
+        // look for window.event in case event isn't passed in
+        if (typeof e == 'undefined' && window.event) {
+         e = window.event; 
+        }
+
+        if (e.keyCode == 13){
+            onSearch()
+        }
+    }
+
+    //按下搜尋
+    function onSearch(){
+        var data_ = {
+            word: $('#queryword').val()
+        };
+
+        // alert(data_.word);
+
+        // $.post("/user/query", data_, function(data){
+        //     alert(data_);
+        // });
+
+        $.ajax({ 
+            type: 'POST',
+            url: '/word/query',
+            data: JSON.stringify(data_),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                //alert(data);
+                $('#result').empty();
+                $('#result').append(data);
+            }
+        });
+    }
+
+    //按下存檔
+    function onSave(){
+        var data_ = {
+            word: $('#queryword').val()
+        };
+
+        $.ajax({ 
+            type: 'POST',
+            url: '/word/save',
+            data: JSON.stringify(data_),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(data){
+                //alert(data);
+                $("#message").append(
+					"<div class='alert alert-block fade in alert-info'>"+
+                	"<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
+					"<div class='alert-info'>"+data+"</div></div>"
+                );
+            }
+        });   
+    }
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style type="text/css">
+    #logo{
+        //background-color:#fdce3e;
+        background-repeat:no-repeat;
+        background-image:url(http://l.yimg.com/pv/i/all/vertical/dictionary/tw_srp_metro_dictionary_201211231324.png);
+        top:5px;
+        left:-50px;
+        width:200px;
+        height:58px;
+        //max-width: 100px;
+        text-indent:-9999px
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<br />
+<h1>{{qword['word']}}</h1>
+<hr/>
+<div id='result'>
+    {{qword['word_info']['html']|safe}}
+</div>
+{% endblock %}

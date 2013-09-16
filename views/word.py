@@ -9,6 +9,7 @@
 
 import json
 import os
+import time, datetime
 #import shelve
 from flask import Blueprint, render_template, abort, redirect, url_for, flash
 from flask import g
@@ -53,7 +54,7 @@ def save():
     '''存到單字本(存到mongodb)'''
     
     if g.user == None:
-	return "You should login!"
+        return "You should login first!"
 
     word = request.json['word']
     try:  
@@ -75,10 +76,13 @@ def save():
         word_info['text'] = result.text()
         
         # json
+        t = time.time()
         word_jn = {}
         word_jn['user'] = g.user.account
         word_jn['word'] = word
-        word_jn['word_info'] = word_info   
+        word_jn['word_info'] = word_info
+        word_jn['familiar'] = 0
+        word_jn['date'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(t))
 
         word_id = db_words.insert(word_jn)
         print word_id
@@ -134,7 +138,8 @@ def save_old():
 def book():
     '''打開單字本(mongodb)'''
     if g.user == None:
-        return url_for('index')
+        flash("You should login first!")
+        return redirect(url_for('index'))
 
 	
     words = {}
@@ -186,18 +191,33 @@ def wordbook_old():
 
 @word.route('/delete/<word>', methods=['POST'])
 def delete(word):
-	'''刪除單字(mongodb)'''
-	
-	if g.user == None:
-		return url_for('index')
+    '''刪除單字(mongodb)'''
 
-	try:
-		mcli = MongoClient('localhost', 27017)
-		mdb = mcli.wordgo
-		db_words = mdb.word
-		db_words.remove({"user" : g.user.account, "word" : word})
+    if g.user == None:
+        flash("You should login first!")
+        return redirect(url_for('index'))
+
+    try:
+    	mcli = MongoClient('localhost', 27017)
+    	mdb = mcli.wordgo
+    	db_words = mdb.word
+    	db_words.remove({"user" : g.user.account, "word" : word})
         
-	finally:  
-		pass
+    finally:  
+    	pass
 
-	return "remove ok"
+    return "remove ok"
+
+
+@word.route('/show/<word>', methods=['POST', 'GET'])
+def show(word):
+    '''顯示單字本的單字'''
+    if g.user == None:
+        flash("You should login first!")
+        return redirect(url_for('index'))
+
+    mcli = MongoClient('localhost', 27017)
+    mdb = mcli.wordgo
+    db_words = mdb.word
+    qword = db_words.find_one({"word" : word})
+    return render_template('word/show.html',qword=qword)
