@@ -20,6 +20,22 @@
             //$(".cbWord").attr("checked", false);
         }
     }
+
+    //刪除
+    function delWord(word){
+	    
+	    myPost("word/delete/"+word, "", function(data){
+			//alert(data);
+			var tr = $('#word_'+word);
+			tr.css("background-color","#FF3700");
+			tr.fadeOut(400, function(){
+				tr.remove();
+			});
+			//alert("return");
+			return false;
+	    });
+    }
+    
 </script>
 {% endblock %}
 
@@ -27,7 +43,8 @@
 {% endblock %}
 
 {% block content %}
-    <div id='totalNum' align='center'>共{{ words|count }}筆</div>
+    <!--<div id='totalNum' align='center'>共{#{ words|count }#}筆</div>-->
+    <div id='totalNum' align='center'>共{{ words.count() }}筆</div>
 
     <table id="wordtb" class="table table-striped table-bordered">
         <thead>
@@ -40,6 +57,7 @@
             </tr>
         </thead>
         <tbody>
+        {#
             {% for key in words %}
                 <tr>
                     <td><input type="checkbox" class="cbWord" name="user_active_col[]" value="{{ key }}"></td>
@@ -47,6 +65,17 @@
                     <td>{{ key }}</td>
                     <td>{{ words[key]['text'] }}</td>
                     <td><button id="del_{{ key }}">Delete</button>
+                </tr>
+            {% endfor%}
+		#}
+
+            {% for word in words %}
+                <tr id="word_{{ word['word'] }}">
+                    <td><input type="checkbox" class="cbWord" name="user_active_col[]" value="{{ word['word'] }}"></td>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ word['word'] }}</td>
+                    <td>{{ word['word_info']['text'] }}</td>
+                    <td><button onclick="delWord('{{ word['word'] }}')">Delete</button>
                 </tr>
             {% endfor%}
         </tbody>

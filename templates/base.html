@@ -15,6 +15,7 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="{{ url_for('static', filename='jquery-ui/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='jquery-ui-bootstrap/js/jquery-ui-1.9.2.custom.min.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='utility.js') }}"></script>
 
     {% block extra_script %}
     {% endblock %}
@@ -50,7 +51,8 @@
               <a class="brand" href="{{ url_for('index') }}">WordGo</a>
               <div class="nav-collapse collapse">
                   <ul class="nav">
-                      <li><a href="{{ url_for('user.search') }}">{{_("查詢")}}</a></li>
+                      <li><a href="{{ url_for('word.search') }}">{{_("查詢")}}</a></li>
+                      <li><a href="{{ url_for('word.book') }}">{{_("單字簿")}}</a></li>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{_("關於")}} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -71,7 +73,7 @@
                         {{ _('[%(user)s]',user=g.user.account) }} <b class="caret"></b>
                       </a>
                       <ul class="dropdown-menu" >
-                        <li><a href="{{ url_for('user.wordbook') }}">{{_("單字簿")}}</a></li>
+                        <!--<li><a href="{{ url_for('word.book') }}">{{_("單字簿")}}</a></li>-->
                         <li><a href="{{ url_for('user.profile') }}">{{_("個人資訊")}}</a></li>
                         <li class="divider"></li>
                         <li><a href="{{ url_for('logout') }}">{{_("登出")}}</a></li>

@@ -41,11 +41,13 @@ from model.Forms import LoginForm, RegisterForm
 # 藍圖
 from views import about
 from views import user
+from views import word
 
 
 DEFAULT_MODULES = (
 (about, '/about'),
 (user, '/user'),
+(word, '/word')
 )
 
 
