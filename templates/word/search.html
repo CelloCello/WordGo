@@ -56,6 +56,10 @@
             contentType: 'application/json;charset=UTF-8',
             success: function(data){
                 alert(data);
+                $(".alert").append(
+                	"<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
+					"<div class='alert-info'>"+data+"</div>"
+                );
             }
         });   
     }
@@ -89,6 +93,10 @@
     </center>
 </div>
 <div id='saveBtn' onclick='onSave()'>SAVE</div>
+<div class="alert alert-block fade in alert-info">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<div class="alert-info">aaa</div>
+</div>
 <hr/>
 <div id='result'>
 </div>
