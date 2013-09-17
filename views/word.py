@@ -13,7 +13,7 @@ import time, datetime
 #import shelve
 from flask import Blueprint, render_template, abort, redirect, url_for, flash
 from flask import g
-from flask import request
+from flask import request, make_response
 from flask import jsonify
 #from jinja2 import TemplateNotFound
 
@@ -21,6 +21,7 @@ from flask import jsonify
 #from model.extensions import db
 #from model.GameObj import DbGame
 from pymongo import MongoClient
+from bson import json_util
 
 # 字典
 from dict.yahoo import YahooDict
@@ -221,3 +222,26 @@ def show(word):
     db_words = mdb.word
     qword = db_words.find_one({"word" : word})
     return render_template('word/show.html',qword=qword)
+
+@word.route('/practice')
+def practice():
+	'''練習單字'''
+	return render_template('word/practice.html')
+
+@word.route('/get_words/<int:page>', methods=['GET'])
+def get_words(page):
+	'''取得某頁的單字'''
+	if g.user == None:
+		return "You should login first!"
+
+	if page <= 0:
+		return "NG"
+        
+	mcli = MongoClient('localhost', 27017)
+	mdb = mcli.wordgo
+	db_words = mdb.word
+	qwords = db_words.find({}, {"_id":0, "user":0}).limit(20).skip((page-1)*20)
+	json_doc = [json.dumps(word, default=json_util.default) for word in qwords]
+	#json_words = []
+	#json_words = [word['word'] for word in qwords]
+	return make_response(json.dumps(json_doc))
